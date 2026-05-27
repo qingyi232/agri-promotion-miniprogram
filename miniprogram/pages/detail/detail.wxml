@@ -1,0 +1,123 @@
+<view class="page-detail">
+  <!-- 封面图 -->
+  <image class="detail-cover" src="{{story.coverImage}}" mode="aspectFill"></image>
+
+  <!-- 故事内容 -->
+  <view class="detail-body">
+    <view class="detail-tags">
+      <text class="tag" wx:for="{{story.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+    </view>
+    <text class="detail-title">{{story.title}}</text>
+
+    <view class="detail-author-row">
+      <view class="detail-author">
+        <image class="author-avatar" src="{{story.authorAvatar}}" mode="aspectFill"></image>
+        <view class="author-info">
+          <text class="author-name">{{story.authorName}}</text>
+          <text class="publish-time">{{story.createTimeStr}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="detail-content">
+      <rich-text nodes="{{story.content}}"></rich-text>
+    </view>
+
+    <!-- 故事图片集 -->
+    <view class="detail-images" wx:if="{{story.images && story.images.length > 0}}">
+      <image wx:for="{{story.images}}" wx:key="*this" class="detail-img-item" src="{{item}}" mode="widthFix" bindtap="previewImage" data-src="{{item}}"></image>
+    </view>
+
+    <!-- 产地信息 -->
+    <view class="origin-card" wx:if="{{story.origin}}">
+      <view class="origin-header">
+        <image class="origin-icon" src="https://img.icons8.com/ios-filled/50/3a7d44/place-marker--v1.png" mode="aspectFit"></image>
+        <text class="origin-title">产地信息</text>
+      </view>
+      <view class="origin-body">
+        <view class="origin-item">
+          <text class="origin-label">产地</text>
+          <text class="origin-value">{{story.origin}}</text>
+        </view>
+        <view class="origin-item" wx:if="{{story.season}}">
+          <text class="origin-label">应季</text>
+          <text class="origin-value">{{story.season}}</text>
+        </view>
+        <view class="origin-item" wx:if="{{story.feature}}">
+          <text class="origin-label">特色</text>
+          <text class="origin-value">{{story.feature}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 互动数据 -->
+  <view class="interact-stats">
+    <view class="interact-item">
+      <text class="interact-num">{{story.likeCount || 0}}</text>
+      <text class="interact-label">点赞</text>
+    </view>
+    <view class="interact-item">
+      <text class="interact-num">{{story.commentCount || 0}}</text>
+      <text class="interact-label">评论</text>
+    </view>
+    <view class="interact-item">
+      <text class="interact-num">{{story.viewCount || 0}}</text>
+      <text class="interact-label">浏览</text>
+    </view>
+  </view>
+
+  <!-- 评论区 -->
+  <view class="comment-section">
+    <view class="section-header">
+      <text class="section-header-text">评论 ({{comments.length}})</text>
+    </view>
+
+    <view class="comment-list" wx:if="{{comments.length > 0}}">
+      <view class="comment-item" wx:for="{{comments}}" wx:key="_id">
+        <image class="comment-avatar" src="{{item.userAvatar}}" mode="aspectFill"></image>
+        <view class="comment-body">
+          <view class="comment-top">
+            <text class="comment-user">{{item.userName}}</text>
+            <text class="comment-time">{{item.createTimeStr}}</text>
+          </view>
+          <text class="comment-text">{{item.content}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-comment" wx:if="{{comments.length === 0}}">
+      <text class="text-muted">暂无评论，快来发表第一条吧</text>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <view class="comment-input-wrap" bindtap="focusComment">
+      <text class="comment-placeholder">写评论...</text>
+    </view>
+    <view class="bottom-actions">
+      <view class="action-btn {{isLiked ? 'active' : ''}}" bindtap="toggleLike">
+        <image class="action-icon" wx:if="{{isLiked}}" src="https://img.icons8.com/ios-filled/50/ff6b6b/like.png" mode="aspectFit"></image>
+        <image class="action-icon" wx:if="{{!isLiked}}" src="https://img.icons8.com/ios/50/999999/like--v1.png" mode="aspectFit"></image>
+        <text class="action-text">{{story.likeCount || 0}}</text>
+      </view>
+      <view class="action-btn {{isFavorited ? 'active' : ''}}" bindtap="toggleFavorite">
+        <image class="action-icon" wx:if="{{isFavorited}}" src="https://img.icons8.com/ios-filled/50/f9a825/star--v1.png" mode="aspectFit"></image>
+        <image class="action-icon" wx:if="{{!isFavorited}}" src="https://img.icons8.com/ios/50/999999/star--v1.png" mode="aspectFit"></image>
+        <text class="action-text">收藏</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 评论输入弹窗 -->
+  <view class="comment-modal" wx:if="{{showCommentInput}}" bindtap="hideComment">
+    <view class="comment-modal-content" catchtap="preventBubble">
+      <textarea class="comment-textarea" placeholder="写下你的评论..." focus="{{showCommentInput}}" bindinput="onCommentInput" value="{{commentText}}" maxlength="500" auto-height></textarea>
+      <view class="comment-submit-row">
+        <text class="comment-count">{{commentText.length || 0}}/500</text>
+        <button class="comment-submit-btn" bindtap="submitComment" disabled="{{!commentText || submitting}}">发送</button>
+      </view>
+    </view>
+  </view>
+</view>

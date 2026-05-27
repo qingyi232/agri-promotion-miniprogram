@@ -1,0 +1,94 @@
+<view class="page-recommend">
+  <!-- 顶部标题 -->
+  <view class="rec-header">
+    <text class="rec-title">为你推荐</text>
+    <text class="rec-subtitle">根据你的浏览喜好精选</text>
+  </view>
+
+  <!-- 推荐分类 -->
+  <scroll-view class="rec-tab-scroll" scroll-x>
+    <view class="rec-tab-list">
+      <view class="rec-tab-item {{currentTab === item.id ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="id" bindtap="onTabTap" data-id="{{item.id}}">
+        <image class="rec-tab-icon" src="{{item.icon}}" mode="aspectFit"></image>
+        <text class="rec-tab-text">{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 热门推荐横幅 -->
+  <view class="hot-section" wx:if="{{hotStories.length > 0}}">
+    <view class="hot-header">
+      <view class="hot-title-wrap">
+        <image class="hot-title-icon" src="https://img.icons8.com/ios-filled/50/ff6b35/fire-element.png" mode="aspectFit"></image>
+        <text class="hot-title">热门故事</text>
+      </view>
+    </view>
+    <scroll-view class="hot-scroll" scroll-x>
+      <view class="hot-list">
+        <view class="hot-card" wx:for="{{hotStories}}" wx:key="_id" bindtap="goDetail" data-id="{{item._id}}">
+          <image class="hot-cover" src="{{item.coverImage}}" mode="aspectFill"></image>
+          <view class="hot-info">
+            <text class="hot-card-title">{{item.title}}</text>
+            <view class="hot-card-stats">
+              <image class="hot-like-icon" wx:if="{{item.isLiked}}" src="https://img.icons8.com/ios-filled/50/ff6b6b/like.png" mode="aspectFit"></image>
+              <image class="hot-like-icon" wx:if="{{!item.isLiked}}" src="https://img.icons8.com/ios/50/999999/like--v1.png" mode="aspectFit"></image>
+              <text>{{item.likeCount}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 瀑布流推荐列表 -->
+  <view class="waterfall-section">
+    <view class="waterfall-header">
+      <text class="waterfall-title">精选推荐</text>
+    </view>
+    <view class="waterfall">
+      <view class="waterfall-col">
+        <view class="waterfall-item" wx:for="{{leftCol}}" wx:key="_id" bindtap="goDetail" data-id="{{item._id}}">
+          <image class="waterfall-img" src="{{item.coverImage}}" mode="widthFix"></image>
+          <view class="waterfall-content">
+            <text class="waterfall-item-title">{{item.title}}</text>
+            <view class="waterfall-item-meta">
+              <image class="waterfall-avatar" src="{{item.authorAvatar}}" mode="aspectFill"></image>
+              <text class="waterfall-author">{{item.authorName}}</text>
+              <view class="waterfall-like">
+                <image class="waterfall-like-icon" wx:if="{{item.isLiked}}" src="https://img.icons8.com/ios-filled/50/ff6b6b/like.png" mode="aspectFit"></image>
+                <image class="waterfall-like-icon" wx:if="{{!item.isLiked}}" src="https://img.icons8.com/ios/50/999999/like--v1.png" mode="aspectFit"></image>
+                <text>{{item.likeCount}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="waterfall-col">
+        <view class="waterfall-item" wx:for="{{rightCol}}" wx:key="_id" bindtap="goDetail" data-id="{{item._id}}">
+          <image class="waterfall-img" src="{{item.coverImage}}" mode="widthFix"></image>
+          <view class="waterfall-content">
+            <text class="waterfall-item-title">{{item.title}}</text>
+            <view class="waterfall-item-meta">
+              <image class="waterfall-avatar" src="{{item.authorAvatar}}" mode="aspectFill"></image>
+              <text class="waterfall-author">{{item.authorName}}</text>
+              <view class="waterfall-like">
+                <image class="waterfall-like-icon" wx:if="{{item.isLiked}}" src="https://img.icons8.com/ios-filled/50/ff6b6b/like.png" mode="aspectFit"></image>
+                <image class="waterfall-like-icon" wx:if="{{!item.isLiked}}" src="https://img.icons8.com/ios/50/999999/like--v1.png" mode="aspectFit"></image>
+                <text>{{item.likeCount}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+  <view class="empty-state" wx:if="{{!loading && leftCol.length === 0 && rightCol.length === 0}}">
+    <image src="https://img.icons8.com/ios/200/e0e0e0/nothing-found.png" mode="aspectFit"></image>
+    <text>暂无推荐，多逛逛吧</text>
+  </view>
+</view>

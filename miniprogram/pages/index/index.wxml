@@ -1,0 +1,82 @@
+<view class="page-index">
+  <!-- 顶部搜索栏 -->
+  <view class="search-bar">
+    <view class="search-inner">
+      <image class="search-icon" src="https://img.icons8.com/ios/50/999999/search--v1.png" mode="aspectFit"></image>
+      <input class="search-input" placeholder="搜索农产品故事..." bindinput="onSearchInput" value="{{searchKey}}" confirm-type="search" bindconfirm="onSearch" />
+    </view>
+  </view>
+
+  <!-- 顶部横幅轮播 -->
+  <swiper class="banner-swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="4000" circular="{{true}}" indicator-color="rgba(58,125,68,0.3)" indicator-active-color="#3a7d44">
+    <swiper-item wx:for="{{banners}}" wx:key="index">
+      <image class="banner-img" src="{{item.image}}" mode="aspectFill" bindtap="onBannerTap" data-id="{{item.storyId}}"></image>
+      <view class="banner-title">{{item.title}}</view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 分类标签 -->
+  <scroll-view class="category-scroll" scroll-x>
+    <view class="category-list">
+      <view class="category-item {{currentCategory === item.id ? 'active' : ''}}" wx:for="{{categories}}" wx:key="id" bindtap="onCategoryTap" data-id="{{item.id}}">
+        {{item.name}}
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 故事列表 -->
+  <view class="story-list">
+    <view class="section-title">
+      <text class="section-title-text">农产品故事</text>
+      <text class="section-title-sub">发现来自田间的美好</text>
+    </view>
+
+    <view class="story-card" wx:for="{{stories}}" wx:key="_id" bindtap="goDetail" data-id="{{item._id}}">
+      <image class="story-cover" src="{{item.coverImage}}" mode="aspectFill" lazy-load="{{true}}"></image>
+      <view class="story-info">
+        <view class="story-tags">
+          <text class="tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+        </view>
+        <text class="story-title">{{item.title}}</text>
+        <text class="story-summary">{{item.summary}}</text>
+        <view class="story-meta">
+          <view class="story-author">
+            <image class="author-avatar" src="{{item.authorAvatar}}" mode="aspectFill"></image>
+            <text class="author-name">{{item.authorName}}</text>
+          </view>
+          <view class="story-stats">
+            <view class="stat-item">
+              <image class="stat-icon" wx:if="{{item.isLiked}}" src="https://img.icons8.com/ios-filled/50/ff6b6b/like.png" mode="aspectFit"></image>
+              <image class="stat-icon" wx:if="{{!item.isLiked}}" src="https://img.icons8.com/ios/50/999999/like--v1.png" mode="aspectFit"></image>
+              <text>{{item.likeCount}}</text>
+            </view>
+            <view class="stat-item">
+              <image class="stat-icon" src="https://img.icons8.com/ios/50/999999/speech-bubble--v1.png" mode="aspectFit"></image>
+              <text>{{item.commentCount}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="loading-wrap" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+    <view class="load-more-tip" wx:if="{{noMore && stories.length > 0}}">
+      <text class="text-muted">— 已经到底了 —</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && stories.length === 0}}">
+      <image src="https://img.icons8.com/ios/200/e0e0e0/nothing-found.png" mode="aspectFit"></image>
+      <text>暂无故事，敬请期待</text>
+    </view>
+  </view>
+
+  <!-- AI 创作悬浮按钮 -->
+  <view class="ai-fab" bindtap="goAiStory">
+    <image class="ai-fab-icon" src="https://img.icons8.com/ios-filled/50/ffffff/artificial-intelligence.png" mode="aspectFit"></image>
+    <text class="ai-fab-text">AI创作</text>
+  </view>
+</view>

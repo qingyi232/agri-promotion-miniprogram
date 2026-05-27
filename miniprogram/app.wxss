@@ -1,0 +1,119 @@
+/* 全局样式 - 农产品清新主题 */
+page {
+  background-color: #f6f7f2;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  color: #333333;
+  font-size: 28rpx;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+/* 主色调变量 */
+/* 主绿: #3a7d44  辅绿: #5fa868  浅绿: #e8f5e9  金色点缀: #c8a951  暖棕: #8d6e4a */
+
+.container {
+  padding: 0 30rpx;
+}
+
+/* 卡片基础样式 */
+.card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  margin-bottom: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 16rpx rgba(58, 125, 68, 0.06);
+}
+
+/* 绿色按钮 */
+.btn-primary {
+  background: linear-gradient(135deg, #3a7d44, #5fa868);
+  color: #ffffff;
+  border: none;
+  border-radius: 44rpx;
+  padding: 18rpx 48rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  letter-spacing: 2rpx;
+}
+
+.btn-primary::after {
+  border: none;
+}
+
+/* 文字颜色 */
+.text-primary {
+  color: #3a7d44;
+}
+
+.text-secondary {
+  color: #8d6e4a;
+}
+
+.text-muted {
+  color: #999999;
+}
+
+.text-gold {
+  color: #c8a951;
+}
+
+/* 分割线 */
+.divider {
+  height: 1rpx;
+  background: #eee;
+  margin: 20rpx 0;
+}
+
+/* 标签 */
+.tag {
+  display: inline-block;
+  padding: 6rpx 18rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  margin-right: 12rpx;
+  background: #e8f5e9;
+  color: #3a7d44;
+}
+
+/* 图片占位 */
+.img-placeholder {
+  background: #e8f5e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 60rpx;
+}
+
+.empty-state image {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.6;
+}
+
+.empty-state text {
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* 加载动画 */
+.loading-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+}
+
+.loading-wrap text {
+  color: #999;
+  font-size: 26rpx;
+  margin-left: 16rpx;
+}

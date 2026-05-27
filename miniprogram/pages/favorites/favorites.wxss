@@ -1,0 +1,100 @@
+.page-favorites {
+  min-height: 100vh;
+  background: #f6f7f2;
+}
+
+.tab-bar {
+  display: flex;
+  background: #fff;
+  padding: 0 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  color: #999;
+  position: relative;
+}
+
+.tab-item.active {
+  color: #3a7d44;
+  font-weight: 600;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 4rpx;
+  background: #3a7d44;
+  border-radius: 2rpx;
+}
+
+.fav-list {
+  padding: 20rpx 30rpx;
+}
+
+.fav-item {
+  display: flex;
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(58,125,68,0.06);
+}
+
+.fav-cover {
+  width: 220rpx;
+  height: 180rpx;
+  flex-shrink: 0;
+}
+
+.fav-info {
+  flex: 1;
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.fav-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #222;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.fav-summary {
+  font-size: 24rpx;
+  color: #888;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin-top: 8rpx;
+}
+
+.fav-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+
+.fav-author {
+  font-size: 22rpx;
+  color: #3a7d44;
+}
+
+.fav-time {
+  font-size: 22rpx;
+  color: #bbb;
+}

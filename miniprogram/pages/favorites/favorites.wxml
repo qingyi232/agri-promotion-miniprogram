@@ -1,0 +1,35 @@
+<view class="page-favorites">
+  <!-- 标签切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{currentType === 'favorites' ? 'active' : ''}}" bindtap="switchTab" data-type="favorites">
+      <text>我的收藏</text>
+    </view>
+    <view class="tab-item {{currentType === 'likes' ? 'active' : ''}}" bindtap="switchTab" data-type="likes">
+      <text>我的点赞</text>
+    </view>
+  </view>
+
+  <!-- 列表 -->
+  <view class="fav-list">
+    <view class="fav-item" wx:for="{{list}}" wx:key="_id" bindtap="goDetail" data-id="{{item.storyId}}">
+      <image class="fav-cover" src="{{item.coverImage}}" mode="aspectFill"></image>
+      <view class="fav-info">
+        <text class="fav-title">{{item.title}}</text>
+        <text class="fav-summary">{{item.summary}}</text>
+        <view class="fav-meta">
+          <text class="fav-author">{{item.authorName}}</text>
+          <text class="fav-time">{{item.timeStr}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <view class="empty-state" wx:if="{{!loading && list.length === 0}}">
+    <image src="https://img.icons8.com/ios/200/e0e0e0/like--v1.png" mode="aspectFit"></image>
+    <text>{{currentType === 'favorites' ? '暂无收藏' : '暂无点赞'}}</text>
+  </view>
+</view>

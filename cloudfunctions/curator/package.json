@@ -1,0 +1,9 @@
+{
+  "name": "curator",
+  "version": "1.0.0",
+  "description": "青年策展人中心云函数",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

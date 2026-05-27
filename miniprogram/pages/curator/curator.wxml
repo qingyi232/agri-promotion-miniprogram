@@ -1,0 +1,64 @@
+<view class="page-curator">
+  <!-- 顶部统计卡片 -->
+  <view class="curator-header">
+    <view class="curator-title-row">
+      <image class="curator-title-icon" src="https://img.icons8.com/ios-filled/50/ffffff/paint-palette.png" mode="aspectFit"></image>
+      <text class="curator-title">策展人中心</text>
+    </view>
+    <text class="curator-subtitle">管理你的农产品故事投稿</text>
+    <view class="curator-stats">
+      <view class="curator-stat {{currentTab === 'pending' ? 'active' : ''}}" bindtap="switchTab" data-tab="pending">
+        <text class="curator-stat-num">{{stats.pendingCount || 0}}</text>
+        <text class="curator-stat-label">待审核</text>
+      </view>
+      <view class="curator-stat-divider"></view>
+      <view class="curator-stat {{currentTab === 'progress' ? 'active' : ''}}" bindtap="switchTab" data-tab="progress">
+        <text class="curator-stat-num">{{stats.progressCount || 0}}</text>
+        <text class="curator-stat-label">进行中</text>
+      </view>
+      <view class="curator-stat-divider"></view>
+      <view class="curator-stat {{currentTab === 'done' ? 'active' : ''}}" bindtap="switchTab" data-tab="done">
+        <text class="curator-stat-num">{{stats.doneCount || 0}}</text>
+        <text class="curator-stat-label">已完成</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 标签筛选 -->
+  <view class="tab-bar-curator">
+    <view class="tab-c-item {{currentTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="tab-c-item {{currentTab === 'pending' ? 'active' : ''}}" bindtap="switchTab" data-tab="pending">待审核</view>
+    <view class="tab-c-item {{currentTab === 'progress' ? 'active' : ''}}" bindtap="switchTab" data-tab="progress">进行中</view>
+    <view class="tab-c-item {{currentTab === 'done' ? 'active' : ''}}" bindtap="switchTab" data-tab="done">已完成</view>
+  </view>
+
+  <!-- 故事列表 -->
+  <view class="curator-list">
+    <view class="curator-item" wx:for="{{list}}" wx:key="_id">
+      <view class="curator-item-header">
+        <view class="curator-status-tag status-{{item.status}}">
+          <text>{{item.status === 'pending' ? '待审核' : item.status === 'progress' ? '进行中' : '已完成'}}</text>
+        </view>
+        <view class="curator-source-tag" wx:if="{{item.source === 'ai'}}">
+          <text>AI生成</text>
+        </view>
+        <text class="curator-item-time">{{item.timeStr}}</text>
+      </view>
+      <text class="curator-item-title">{{item.title}}</text>
+      <text class="curator-item-summary">{{item.summary}}</text>
+      <view class="curator-item-footer">
+        <text class="curator-item-category">{{item.categoryName}}</text>
+        <text class="curator-item-note" wx:if="{{item.reviewNote}}">{{item.reviewNote}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <view class="empty-state" wx:if="{{!loading && list.length === 0}}">
+    <image src="https://img.icons8.com/ios/200/e0e0e0/document--v1.png" mode="aspectFit"></image>
+    <text>暂无投稿记录</text>
+  </view>
+</view>

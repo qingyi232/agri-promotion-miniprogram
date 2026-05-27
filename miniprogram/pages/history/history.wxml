@@ -1,0 +1,33 @@
+<view class="page-history">
+  <view class="history-header">
+    <text class="history-title">浏览记录</text>
+    <text class="history-clear" bindtap="clearHistory" wx:if="{{list.length > 0}}">清空记录</text>
+  </view>
+
+  <!-- 按日期分组的浏览记录 -->
+  <view class="history-group" wx:for="{{groupedList}}" wx:key="date">
+    <view class="history-date">
+      <text>{{item.date}}</text>
+    </view>
+    <view class="history-item" wx:for="{{item.items}}" wx:for-item="record" wx:key="_id" bindtap="goDetail" data-id="{{record.storyId}}">
+      <image class="history-cover" src="{{record.coverImage}}" mode="aspectFill"></image>
+      <view class="history-info">
+        <text class="history-item-title">{{record.title}}</text>
+        <text class="history-item-summary">{{record.summary}}</text>
+        <view class="history-item-meta">
+          <text class="history-author">{{record.authorName}}</text>
+          <text class="history-time">{{record.timeStr}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <view class="empty-state" wx:if="{{!loading && list.length === 0}}">
+    <image src="https://img.icons8.com/ios/200/e0e0e0/clock--v1.png" mode="aspectFit"></image>
+    <text>暂无浏览记录</text>
+  </view>
+</view>

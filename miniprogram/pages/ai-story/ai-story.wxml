@@ -1,0 +1,58 @@
+<view class="page-ai">
+  <!-- 顶部介绍 -->
+  <view class="ai-header">
+    <view class="ai-icon-wrap">
+      <image class="ai-icon" src="https://img.icons8.com/ios-filled/100/ffffff/artificial-intelligence.png" mode="aspectFit"></image>
+    </view>
+    <text class="ai-title">AI 智能创作</text>
+    <text class="ai-desc">输入农产品关键词，AI 帮你生成推广故事</text>
+  </view>
+
+  <!-- 输入区域 -->
+  <view class="ai-form">
+    <view class="form-group">
+      <text class="form-label">农产品名称</text>
+      <input class="form-input" placeholder="例如：赣南脐橙、五常大米..." bindinput="onNameInput" value="{{productName}}" />
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">产品分类</text>
+      <view class="category-tags">
+        <view class="cat-tag {{selectedCategory === item.id ? 'active' : ''}}" wx:for="{{categories}}" wx:key="id" bindtap="selectCategory" data-id="{{item.id}}">
+          {{item.name}}
+        </view>
+      </view>
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">补充描述（选填）</text>
+      <textarea class="form-textarea" placeholder="产地、特色、口感等关键信息..." bindinput="onDescInput" value="{{extraDesc}}" maxlength="200"></textarea>
+    </view>
+
+    <button class="ai-generate-btn {{generating ? 'disabled' : ''}}" bindtap="generateStory" disabled="{{generating || !productName}}">
+      <image class="btn-icon" wx:if="{{!generating}}" src="https://img.icons8.com/ios-filled/50/ffffff/artificial-intelligence.png" mode="aspectFit"></image>
+      <text>{{generating ? '正在生成中...' : 'AI 生成故事'}}</text>
+    </button>
+  </view>
+
+  <!-- 生成结果 -->
+  <view class="ai-result" wx:if="{{generatedStory.title}}">
+    <view class="result-header">
+      <image class="result-icon" src="https://img.icons8.com/ios-filled/50/3a7d44/checkmark--v1.png" mode="aspectFit"></image>
+      <text class="result-title-text">生成完成</text>
+    </view>
+
+    <view class="result-card">
+      <text class="result-story-title">{{generatedStory.title}}</text>
+      <text class="result-story-content">{{generatedStory.summary}}</text>
+      <view class="result-tags">
+        <text class="result-tag" wx:for="{{generatedStory.tags}}" wx:key="*this">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="result-actions">
+      <button class="action-submit" bindtap="submitStory">提交审核</button>
+      <button class="action-regenerate" bindtap="generateStory">重新生成</button>
+    </view>
+  </view>
+</view>
